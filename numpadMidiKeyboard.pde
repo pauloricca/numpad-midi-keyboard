@@ -27,7 +27,6 @@ void setup() {
 void draw() {}
 
 void keyPressed() {
-  println("Key: " + keyCode);
   // Tab 9
   // / 111
   // * 106
@@ -68,11 +67,9 @@ void keyPressed() {
     if (previousNote != note) {
       if (previousNote >= 0) {
         midiBus.sendNoteOff(0, previousNote, 127);
-        println("Off: " + (previousNote));
       }
 
       midiBus.sendNoteOn(0, note, 127);
-      println("On: " + note);
       previousNote = note;
     }
   }
@@ -84,7 +81,6 @@ void keyReleased() {
     int number = keyCode - 96;
     int note = notesInKey.get((octave * 12) + number - 1);
     if (!isLatched && previousNote >= 0 && note == previousNote) {
-      println("Off: " + note);
       midiBus.sendNoteOff(0, note, 127);
       previousNote = -1;
     }
